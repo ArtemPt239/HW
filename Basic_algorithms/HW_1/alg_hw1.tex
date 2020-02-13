@@ -1,0 +1,341 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+
+\def\prend{
+	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {Основные алгоритмы 2020} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 1}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+\author{Artem Petrov}
+\title{Homework № 1 for "Basic algorithms" course}
+\date{{\selectlanguage{english}\today} }
+\begin{document}
+\begin{minipage}{\textwidth}
+	\maketitle
+\end{minipage}
+
+
+
+
+                                                                                                       
+\pr Верно ли, что \prsubr $ n = O(n\log n)$? \prsubr $\exists \eps > 0 : n\log n = \Om(n^{1+\eps})$?  
+
+$\triangle$
+
+\textbf{a)} $ \exists N = 2 , C = 1: \forall n \in \mathbb{N}, n \geq N: n\leq Cn \log_2 (n) \Rightarrow n = O(n\log_2(n)) \Rightarrow n =O(n \log(n))$
+
+\textbf{b)} From calculus it's known, that $ \forall \epsilon > 0, C>0\; \forall N \in \mathbb{N}, \exists n \in \mathbb{N}, n>N: n^\epsilon > C\log_2(n) $.
+
+Therefore $ \forall \epsilon > 0, C>0\; \forall N \in \mathbb{N}, \exists n \in \mathbb{N}, n>N: n\log_2(n) < Cnn^\epsilon  \Rightarrow \forall \epsilon>0\; n\log(n) \ne \Omega(n^{1+\epsilon})$ 
+
+\hfill$ \square $
+
+\pr Известно, что $f(n) = O(n^2), g(n) = \Omega(1), g(n) = O(n)$. Положим $$h(n) = \cfrac{f(n)}{g(n)}.$$ 
+
+\prsub Возможно ли, что \textbf{а)} $h(n) = \Theta(n\log n)$; \textbf{б)} $h(n) = \Theta(n^3)$ ?
+
+\prsub Приведите наилучшие (из возможных) верхние и нижние оценки на функцию $h(n)$ и приведите пример функций $f(n)$ и $g(n)$ для которых ваши оценки на $h(n)$ достигаются.
+
+$\triangle$
+
+$ g(n) = \Omega(1) \Rightarrow \exists C_g>0, N_g\in \mathbb{N}: \forall n>N g(n)\geq C_g $
+
+$ f(n) = O(n^2) \Rightarrow \exists C_f>0, N_f\in \mathbb{N}: \forall n>N f(n)\leq C_fn^2$
+
+\textbf{1.a)} Yes. $ f(n) = n\log(n), g(n) = 1 \Rightarrow h(n)= n\log(n)$ 
+
+\textbf{1.b)} No.  
+
+$ \forall C_h>0\; \forall N_h \in \mathbb{N}, \exists n = \max(N_h, N_g,N_f, 2\lceil C_f/(C_gC_h)\rceil ) \in \mathbb{N}, n\geq N_h: h(n) = f(n)/g(n) \leq C_f/C_g n^2 \le C_hn^3 \Leftrightarrow \neg (h(n) = \Omega(n^3)$ 
+
+\textbf{2.} Lower bound for h(n) does not exist since there are no lower bound for f(n).
+
+Higher bound for $ h(n) $ is $ O(n^2) $. Here is the proof:
+
+$ \exists C_h = C_f/C_g > 0, \exists N_h = max (N_g,N_f)>0, N \in \mathbb{N}: \forall n > N_h h(n) = f(n)/g(n) \leq C_fn^2/C_g = C_h n^2$
+
+For example, $f(n) = n^2$, $g(n) = 1$.
+
+\hfill $\square$
+
+\pr Найдите $\Theta$-асимптотику $\sum\limits_{i=1}^n \sqrt{i^3+2i+5}$.
+
+$\triangle$
+
+	$ \big] N_0 = 10 $
+	$ \forall i > N_0 i^3>2i+5$
+	
+	$ \exists C_1 = 2 > 0, \exists N_1 = N_0 : \forall n >N_1 \; \sum_{i=1}^{n} \sqrt{i^3 + 2i +5} \leq \sum_{i=1}^{n} \sqrt{n^3 + 2n +5} \leq \sum_{i=1}^{n} \sqrt{2n^3} \leq C_1 n^{5/2} \Rightarrow \sum_{i=1}^{n} \sqrt{i^3 + 2i +5} = O(n^{5/2})$
+	
+	
+	$ \exists C_2 = 2^{5/2} > 0, \exists N_2 = 10 : \forall n >N_2 \; \sum_{i=1}^{n} \sqrt{i^3 + 2i +5} \geq  \sum_{i=1}^{n} \sqrt{i^3} \geq \sum_{i=n/2}^{n} \sqrt{i^3}  \geq \sum_{i=n/2}^{n} \sqrt{(n/2)^3} \geq (n/2)^{5/2} = C_2 n^{5/2} \Rightarrow \sum_{i=1}^{n} \sqrt{i^3 + 2i +5} = \Omega(n^{5/2}) $
+	
+	$ \sum_{i=1}^{n} \sqrt{i^3 + 2i +5} =  \Omega(n^{5/2}) $ and $ \sum_{i=1}^{n} \sqrt{i^3 + 2i +5} = O(n^{5/2}) \Rightarrow \sum_{i=1}^{n} \sqrt{i^3 + 2i +5} = \Theta(n^{5/2}) $
+
+\hfill $\square$
+
+\pr Пусть для положительной функции $f(n)$ известно, что $f(n) = (3 + o(1))^n + \Theta(n^{100})$. Верно ли в общем случае, что $\log f(n) = \Theta(n)$?
+       
+       $\triangle$
+       
+       $ f(n) = (3 + h(n)^n + g(n)$
+       
+       $ \lim\limits_{n\rightarrow\infty} \frac{h(n)}{1} = 0 \Rightarrow \exists N_h\in \mathbb{N} : \forall n> N_h, n \in \mathbb{N} \; |h(n)| < 1$
+       
+       $ \exists C>0,c>0, \exists N_g\in \mathbb{N} : \forall n > N_g \; cn^{100}\leq g(n) \leq Cn^{100}$
+       
+       From calculus we know, that $ \exists N_C \in \mathbb{N} : \forall n \in \mathbb{N} , n > N_C \; 4^n>Cn^{100}$
+       
+       $ \exists C_1=\log(2) >0,c_1=2\log(4) >0, \exists N_f = max(N_g, N_h, N_C, 10 )\in \mathbb{N} : \forall n > N_f \;c_1n=2\log(4)n\geq\log(2) + n\log(4)=\log(2*4^n) \geq \log((4)^n + Cn^{100})\geq \log((3+h(n))^n + g(n) \geq \log(2^n + cn^{100}) \geq \log(2^n) = C_1n \Rightarrow f(n)=\Theta(n)$
+       
+       
+       
+       \hfill $\square$
+       
+\pr Дана программа
+
+{\tt for} (bound = 1; bound * bound < n; bound += 1 ) \{
+
+ \hspace{4mm} {\tt for} (i = 0; i < bound; i += 1) \{
+
+ \hspace{8mm} {\tt for} (j = 0; j < i; j += 2)
+ 
+ \hspace{12mm} {\tt печать} (``алгоритм'')
+
+ \hspace{8mm} {\tt for} (j = 1; j < n; j *= 2)
+
+ \hspace{12mm} {\tt печать} (``алгоритм'')
+ 
+ \hspace{4mm} \}
+
+\}
+
+\smallskip
+
+\noindent Пусть $g(n)$ обозначает число слов ``алгоритм'', которые напечатает программа. Найдите $\Theta$--асимптотику $g(n)$.
+
+$\triangle$
+	
+	$g(n) = \sum\limits_{b=1}^{\sqrt{n}} \sum\limits_{i=0}^{b-1}(\sum\limits_{j=0}^{i/2 - 1}1 + \sum\limits_{j=1}^{\log_2n}1) = 
+	\sum\limits_{b=1}^{\sqrt{n}} \sum\limits_{i=0}^{b-1}(i/2+\log_2n) = \sum\limits_{b=1}^{\sqrt{n}}((b-1)b/4+b\log_2n) = \Theta(n^{3/2}) + \Theta(n\log n) \Rightarrow g(n) = \Theta(n^{3/2})$
+	%(\sqrt{n})(\sqrt{n}-1)/2 * \log_2n + 1/4(n^(3/2)/3 -  = \Theta(n\log(n))$
+	
+\hfill $\square$
+
+\end{document}
+  
